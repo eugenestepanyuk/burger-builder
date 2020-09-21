@@ -4,15 +4,54 @@ import styles from './ContactData.module.css';
 import Button from '../../../components/UI/Button/Button';
 import axios from '../../../axios-orders';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input';
 
 class contactData extends Component {
     state = {
-        name: '',
-        address: {
-            city: '',
-            street: '',
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: ''
+            },
+            city: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your City'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Street'
+                },
+                value: ''
+            },
+            telephone: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Telephone'
+                },
+                value: ''
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: 'fastest', displayValue: 'Fastest' },
+                        { value: 'cheapest', displayValue: 'Cheapest' }
+                    ]
+                },
+                value: ''
+            }
         },
-        telephone: '',
         loading: false
     }
 
@@ -34,12 +73,22 @@ class contactData extends Component {
     }
 
     render() {
+        let formElementsArray = [];
+        for (const key in this.state.orderForm) {
+            formElementsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            });
+        }
         let form = (
             <form>
-                <input className={styles.Input} type="text" name="name" placeholder="Your Name" />
-                <input className={styles.Input} type="text" name="city" placeholder="Your City" />
-                <input className={styles.Input} type="text" name="street" placeholder="Your Street" />
-                <input className={styles.Input} type="text" name="telephone" placeholder="Your Telephone" />
+                {formElementsArray.map(formElements => (
+                    <Input
+                        key={formElements.id}
+                        elementType={formElements.config.elementType}
+                        elementConfig={formElements.config.elementConfig}
+                        value={formElements.config.value} />
+                ))}
                 <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
         );

@@ -14,13 +14,7 @@ const order = (props) => {
     return (
         <div className={styles.Order}>
             <p>Ingredients: {ingredietns.map(ig => (
-                <span style={{
-                    textTransform: 'capitalize',
-                    display: 'inline-block',
-                    margin: '0 8px',
-                    padding: '5px',
-                    border: '1px solid #ccc'
-                }} key={ig.name} >{ig.name} ({ig.amount})</span>
+                <span className={styles.Ingredients} key={ig.name} >{ig.name} ({ig.amount})</span>
             ))} </p>
             <p>Price: <strong>USD {props.price}</strong></p>
         </div>
