@@ -15,7 +15,7 @@ class Checkout extends Component {
         const ingredients = {};
         let price = 0;
 
-        for (let param of query.entries()) {              
+        for (let param of query.entries()) {
             if (param[0] === 'price') {
                 price = param[1];
             } else {
@@ -44,7 +44,7 @@ class Checkout extends Component {
                 <Route
                     path={this.props.match.path + '/contact-data'}
                     render={(props) => (
-                        <ContactData ingredients={this.state.ingredients} price={this.state.price} {...props} />
+                        <ContactData ingredients={this.state.ingredients} price={Number.parseFloat(this.state.price).toFixed(2)} {...props} />
                     )} />
             </div>
         );

@@ -4,23 +4,29 @@ import styles from './Input.module.css';
 
 const input = (props) => {
     let inputElement = null;
+    const inputClasses = [styles.InputElement];
+
+    if(props.invalid && props.shouldValidate && props.touched) {
+        inputClasses.push(styles.Invalid);
+    }
+
     switch (props.elementType) {
         case ('input'):
-            inputElement = <input className={styles.InputElement} {...props.elementConfig} defaultValue={props.value} />;
+            inputElement = <input className={inputClasses.join(' ')} {...props.elementConfig} defaultValue={props.value} onChange={props.changed} />;
             break;
         case ('textarea'):
-            inputElement = <textarea className={styles.InputElement} {...props.elementConfig} defaultValue={props.value} />;
+            inputElement = <textarea className={inputClasses.join(' ')} {...props.elementConfig} defaultValue={props.value} onChange={props.changed} />;
             break;
         case ('select'):
             inputElement =
-                <select className={styles.InputElement} defaultValue={props.value} >
+                <select className={inputClasses.join(' ')} defaultValue={props.value} onChange={props.changed} >
                     {props.elementConfig.options.map(option => (
                         <option key={option.value} defaultValue={option.value}>{option.displayValue}</option>
                     ))}
                 </select>;
             break;
         default:
-            inputElement = <input className={styles.InputElement} {...props.elementConfig} defaultValue={props.value} />;
+            inputElement = <input className={inputClasses.join(' ')} {...props.elementConfig} defaultValue={props.value} onChange={props.changed} />;
             break;
     }
 
